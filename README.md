@@ -1,4 +1,4 @@
-# opencanvas
+# Opencanvas
 Open source multiplayer generative interface canvas platform for agentic ops
 
 # 1) Clone the repo

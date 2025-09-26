@@ -23,9 +23,22 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push
+      - name: Build and push server
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: Dockerfile.server
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/opencanvas:latest
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/opencanvas-client:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/opencanvas--client:${{ github.sha }}
+
+      - name: Build and push client
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.client
+          push: true
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/opencanvas-client:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/opencanvas--client:${{ github.sha }}

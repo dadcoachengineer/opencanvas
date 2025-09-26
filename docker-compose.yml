@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.server
+    image: ${DOCKERHUB_USERNAME:-local}/opencanvas-server:latest
     env_file: .env
     ports:
       - "5057:5057"
@@ -13,23 +14,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.client
+    image: ${DOCKERHUB_USERNAME:-local}/opencanvas-client:latest
     ports:
       - "8080:80"
     networks: [stack]
 
-  # Optional Ollama LLM backend
-  ollama:
-    image: ollama/ollama:latest
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama:/root/.ollama
-    networks: [stack]
-    command: ["serve"]
-
 networks:
   stack:
     driver: bridge
-
-volumes:
-  ollama: {}

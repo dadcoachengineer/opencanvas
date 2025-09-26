@@ -20,7 +20,7 @@ This will build and start:
 	•	server → http://localhost:5057
 	•	client → http://localhost:8080
 
-# 4) Run Using Prebuilt Images
+# 4) Or Run Using Prebuilt Images
 docker compose pull
 docker compose up -d
 

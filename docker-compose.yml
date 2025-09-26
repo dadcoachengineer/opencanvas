@@ -1,0 +1,35 @@
+version: "3.9"
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    env_file: .env
+    ports:
+      - "5057:5057"
+    networks: [stack]
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    ports:
+      - "8080:80"
+    networks: [stack]
+
+  # Optional Ollama LLM backend
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+    networks: [stack]
+    command: ["serve"]
+
+networks:
+  stack:
+    driver: bridge
+
+volumes:
+  ollama: {}
